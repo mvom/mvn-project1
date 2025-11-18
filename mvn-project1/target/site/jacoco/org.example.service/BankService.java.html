@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BankService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mvn-project1</a> &gt; <a href="index.source.html" class="el_package">org.example.service</a> &gt; <span class="el_source">BankService.java</span></div><h1>BankService.java</h1><pre class="source lang-java linenums">package org.example.service;
+
+import java.util.*;
+
+<span class="fc" id="L5">public class BankService {</span>
+
+<span class="fc" id="L7">    private Map&lt;String, BankAccount&gt; accounts = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L8">    private List&lt;Transaction&gt; transactionHistory = new ArrayList&lt;&gt;();</span>
+
+    public void addAccount(BankAccount account) {
+<span class="fc" id="L11">        accounts.put(account.getAccountNumber(), account);</span>
+<span class="fc" id="L12">    }</span>
+
+    public BankAccount getAccount(String accountNumber) {
+<span class="fc" id="L15">        return accounts.get(accountNumber);</span>
+    }
+
+    public void transfer(String fromAccountNumber, String toAccountNumber, double amount) throws InsufficientBalanceException {
+<span class="fc" id="L19">        BankAccount from = accounts.get(fromAccountNumber);</span>
+<span class="fc" id="L20">        BankAccount to = accounts.get(toAccountNumber);</span>
+
+<span class="pc bpc" id="L22" title="1 of 4 branches missed.">        if (from == null || to == null) {</span>
+<span class="fc" id="L23">            throw new IllegalArgumentException(&quot;One or both accounts not found&quot;);</span>
+        }
+
+<span class="fc" id="L26">        from.withdraw(amount);</span>
+<span class="fc" id="L27">        to.deposit(amount);</span>
+
+<span class="fc" id="L29">        transactionHistory.add(new Transaction(fromAccountNumber, toAccountNumber, amount));</span>
+<span class="fc" id="L30">    }</span>
+
+    public List&lt;Transaction&gt; getTransactionHistory() {
+<span class="fc" id="L33">        return Collections.unmodifiableList(transactionHistory);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

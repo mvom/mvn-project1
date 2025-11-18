@@ -1,7 +1,5 @@
 package org.example.service;
 
-import org.example.BankAccount;
-import org.example.InsufficientBalanceException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
